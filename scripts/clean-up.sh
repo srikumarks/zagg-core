@@ -1,1 +1,0 @@
-rm -rf dbs/* logs/* buckets/*

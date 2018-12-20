@@ -55,7 +55,6 @@ class CommandHandler
     void getcursor(std::string const& params, std::string& retStr);
     void scpInfo(std::string const& params, std::string& retStr);
     void tx(std::string const& params, std::string& retStr);
-    void utxoTx(std::string const& params, std::string& retStr);
     void testAcc(std::string const& params, std::string& retStr);
     void testTx(std::string const& params, std::string& retStr);
     void unban(std::string const& params, std::string& retStr);
