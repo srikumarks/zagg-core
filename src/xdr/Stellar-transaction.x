@@ -27,7 +27,8 @@ enum OperationType
     INFLATION = 9,
     MANAGE_DATA = 10,
     BUMP_SEQUENCE = 11,
-    MARK_ACCOUNT = 12
+    MARK_ACCOUNT = 12,
+    UTXO_PAYMENT = 13
 };
 
 /* CreateAccount
@@ -58,6 +59,23 @@ struct PaymentOp
     AccountID destination; // recipient of the payment
     Asset asset;           // what they end up with
     int64 amount;          // amount they end up with
+};
+
+/* Utxo Payment
+
+    Send an amount in specified asset to a destination account for utxo type of transaction
+
+    Threshold: med
+
+    Result: UtxoPaymentResult
+*/
+struct UtxoPaymentOp
+{
+    AccountID destination; // recipient of the payment
+    Asset asset;           // what they end up with
+    int64 amount;          // amount they end up with
+    //int64 fee;             // fee for recepient
+    string32 signature;    // bitcoin type signature
 };
 
 /* PathPayment
@@ -284,7 +302,9 @@ struct Operation
     case BUMP_SEQUENCE:
         BumpSequenceOp bumpSequenceOp;
     case MARK_ACCOUNT:
-        MarkAccountOp markAccountOp;    
+        MarkAccountOp markAccountOp; 
+    case UTXO_PAYMENT:
+        UtxoPaymentOp utxoPaymentOp;
     }
     body;
 };
@@ -723,6 +743,33 @@ union MarkAccountResult switch (MarkAccountResultCode code)
         void;    
 };
 
+/******* Utxo Payment Result ********/
+
+enum UtxoPaymentResultCode
+{
+    // codes considered as "success" for the operation
+    UTXO_PAYMENT_SUCCESS = 0, // payment successfuly completed
+
+    // codes considered as "failure" for the operation
+    UTXO_PAYMENT_MALFORMED = -1,          // bad input
+    UTXO_PAYMENT_UNDERFUNDED = -2,        // not enough funds in source account
+    UTXO_PAYMENT_SRC_NO_TRUST = -3,       // no trust line on source account
+    UTXO_PAYMENT_SRC_NOT_AUTHORIZED = -4, // source not authorized to transfer
+    UTXO_PAYMENT_NO_DESTINATION = -5,     // destination account does not exist
+    UTXO_PAYMENT_NO_TRUST = -6,       // destination missing a trust line for asset
+    UTXO_PAYMENT_NOT_AUTHORIZED = -7, // destination not authorized to hold asset
+    UTXO_PAYMENT_LINE_FULL = -8,      // destination would go above their limit
+    UTXO_PAYMENT_NO_ISSUER = -9       // missing issuer on asset
+};
+
+union UtxoPaymentResult switch (UtxoPaymentResultCode code)
+{
+case UTXO_PAYMENT_SUCCESS:
+    void;
+default:
+    void;
+};
+
 /* High level Operation Result */
 
 enum OperationResultCode
@@ -765,6 +812,8 @@ case opINNER:
         BumpSequenceResult bumpSeqResult;
     case MARK_ACCOUNT:
         MarkAccountResult markAccountResult;
+    case UTXO_PAYMENT:
+        UtxoPaymentResult utxoPaymentResult;
     }
     tr;
 default:

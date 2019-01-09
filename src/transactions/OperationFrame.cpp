@@ -10,6 +10,7 @@
 #include "transactions/AllowTrustOpFrame.h"
 #include "transactions/BumpSequenceOpFrame.h"
 #include "transactions/MarkAccountOpFrame.h"
+#include "transactions/UtxoPaymentOpFrame.h"
 #include "transactions/ChangeTrustOpFrame.h"
 #include "transactions/CreateAccountOpFrame.h"
 #include "transactions/CreatePassiveOfferOpFrame.h"
@@ -85,6 +86,8 @@ OperationFrame::makeHelper(Operation const& op, OperationResult& res,
         return std::make_shared<BumpSequenceOpFrame>(op, res, tx);
     case MARK_ACCOUNT:
         return std::make_shared<MarkAccountOpFrame>(op, res, tx);
+    case UTXO_PAYMENT:
+        return std::make_shared<UtxoPaymentOpFrame>(op, res, tx);
     default:
         ostringstream err;
         err << "Unknown Tx type: " << op.body.type();

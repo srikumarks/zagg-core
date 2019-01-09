@@ -23,6 +23,7 @@
 #include "transactions/ManageOfferOpFrame.h"
 #include "transactions/PathPaymentOpFrame.h"
 #include "transactions/PaymentOpFrame.h"
+#include "transactions/UtxoPaymentOpFrame.h"
 #include "transactions/TransactionFrame.h"
 
 #include "xdrpp/marshal.h"

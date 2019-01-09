@@ -270,6 +270,9 @@
     <ClCompile Include="..\..\src\transactions\PaymentOpFrame.cpp">
       <Filter>transactions</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\transactions\UtxoPaymentOpFrame.cpp">
+      <Filter>transactions</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\transactions\SetOptionsOpFrame.cpp">
       <Filter>transactions</Filter>
     </ClCompile>
@@ -996,6 +999,9 @@
       <Filter>transactions</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\transactions\PaymentOpFrame.h">
+      <Filter>transactions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\transactions\UtxoPaymentOpFrame.h">
       <Filter>transactions</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\transactions\SetOptionsOpFrame.h">
