@@ -74,7 +74,7 @@ struct UtxoPaymentOp
     AccountID destination; // recipient of the payment
     Asset asset;           // what they end up with
     int64 amount;          // amount they end up with
-    //int64 fee;             // fee for recepient
+    int64 fee;             // fee for recepient
     string32 signature;    // bitcoin type signature
 };
 

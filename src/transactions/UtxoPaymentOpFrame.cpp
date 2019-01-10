@@ -156,7 +156,7 @@ UtxoPaymentOpFrame::doCheckValid(Application& app)
     if (mPayment.amount <= 0)
     {
         app.getMetrics()
-            .NewMeter({"op-payment", "invalid", "malformed-negative-amount"},
+            .NewMeter({"op-utxo-payment", "invalid", "malformed-negative-amount"},
                       "operation")
             .Mark();
         innerResult().code(UTXO_PAYMENT_MALFORMED);
@@ -165,7 +165,7 @@ UtxoPaymentOpFrame::doCheckValid(Application& app)
     if (!isAssetValid(mPayment.asset))
     {
         app.getMetrics()
-            .NewMeter({"op-payment", "invalid", "malformed-invalid-asset"},
+            .NewMeter({"op-utxo-payment", "invalid", "malformed-invalid-asset"},
                       "operation")
             .Mark();
         innerResult().code(UTXO_PAYMENT_MALFORMED);
